@@ -116,7 +116,7 @@ class Resident extends React.Component {
                     </Row>
                     <Row>
                         {
-                            this.props.data.numLockouts === 0 ?
+                            this.state.lockoutState.length === 0 ?
                                 <div>no lockouts yet</div>
                                 :
                                 <div>
@@ -125,9 +125,9 @@ class Resident extends React.Component {
                                     </Col>
                                     <Col span={8}>
                                         {
-                                            this.props.data.numReturns === this.props.data.numLockouts ?
+                                            this.state.returnState.length === this.state.lockoutState.length ?
                                                 <Returns data={this.state.returnState} /> :
-                                                this.props.data.numReturns === 0 ?
+                                                this.state.returnState.length === 0 ?
                                                     <div>
                                                         <Button onClick={this.openFormTwo} type='secondary'>
                                                             Checkin Card

@@ -81,8 +81,6 @@ class Residents extends React.Component {
             searchCheckout: e.searchCheckout ? e.searchCheckout : 'both',
         }
 
-        console.log('this is clear state', search);
-
         const filteredResidents = this.state.residentsState.filter(
             (resident) => {
                 return resident.name.toLowerCase().indexOf(search.searchName) !== -1;
