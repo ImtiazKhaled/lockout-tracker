@@ -2,20 +2,45 @@ import React from 'react';
 import { Typography, Layout, Button, Modal, Row } from 'antd';
 import Resident from './resident'
 import { CreateResident } from './residentForm';
-import { residents } from '../fakedata/residents';
+import * as firebase from 'firebase';
+import { app } from '../config';
 const { Title } = Typography;
 const { Header, Content } = Layout;
 
 
 class Residents extends React.Component {
-    state = {
-        residentsState: [],
-        modalVisible: false,
+    constructor(props) {
+        super(props);
+        this.state = {
+            residentsState: [],
+            modalVisible: false,
+        }
+    
+    this.addResident = this.addResident.bind(this);
     }
 
     componentDidMount = e => {
-        this.setState({
-            residentsState: residents
+        this.db = firebase.database();
+        this.listenForChange();
+    }
+    
+    listenForChange = e => {
+        this.db.ref('residents').on('child_added', snapshot => {
+            let resident = {
+                id: snapshot.key,
+                name: snapshot.val().name,
+                roomNumber: snapshot.val().roomNumber,
+                email: snapshot.val().email,
+                lockouts: snapshot.val().lockouts,
+                returns: snapshot.val().returns,
+            }
+            
+            let residents = this.state.residentsState;
+            residents.push(resident);
+
+            this.setState({
+                residentsState: residents
+            });
         })
     }
 
@@ -33,14 +58,19 @@ class Residents extends React.Component {
 
     addResident = e => {
         const resident = {
-            id: this.state.residentsState.length + 1,
+            id: '1',
             name: e.name,
             roomNumber: e.roomNumber,
             email: e.email,
             lockouts: []
         }
+        firebase.database().ref('residents').push({
+            name: resident.name,
+            roomNumber: resident.roomNumber,
+            email: resident.email,
+            lockouts: resident.lockouts,
+        })
         this.setState({
-            residentsState: [...this.state.residentsState, resident],
             modalVisible: false,
         })
     }
@@ -77,6 +107,9 @@ class Residents extends React.Component {
                         onCancel={this.onCancel}
                         footer={null}
                     >
+                        {/* <Button onClick={this.addResident}>
+                            add to firebase
+                        </Button> */}
                         <CreateResident onSubmit={this.addResident} onCancel={this.onCancel} />
                     </Modal>
                 </Content>

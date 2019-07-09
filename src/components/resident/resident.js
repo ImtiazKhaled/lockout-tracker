@@ -42,7 +42,8 @@ class Resident extends React.Component {
 
     addLockout = e => {
         const lockout = {
-            key: this.state.lockoutState.length + 1,
+            // key: this.state.lockoutState.length + 1,
+            key: '1',
             checkoutType: e.checkoutType,
             checkoutItem: e.checkoutItemPrefix + ' ' + e.checkoutItemCode,
             checkoutTime: e.checkoutTime.format('HH:mm MM/DD/YY'),
@@ -56,7 +57,8 @@ class Resident extends React.Component {
 
     addReturn = e => {
         const returnItem = {
-            key: this.state.returnState.length + 1,
+            // key: this.state.returnState.length + 1,
+            key: '2',
             checkinTime: e.checkinTime.format('HH:mm MM/DD/YY'),
             checkinBy: e.checkinBy,
         }
@@ -82,7 +84,7 @@ class Resident extends React.Component {
                         </Col>
                     </Row>
                     <Row>
-                        {
+                        {/* {
                             this.state.lockoutState.length === 0 ?
                                 <div>no lockouts yet</div>
                                 :
@@ -126,7 +128,7 @@ class Resident extends React.Component {
                                         }
                                     </Col>
                                 </div>
-                        }
+                        } */}
                     </Row>
                     <Row>
                         <Button onClick={this.openFormOne} type='primary'>
