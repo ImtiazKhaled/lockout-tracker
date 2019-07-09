@@ -61,10 +61,11 @@ class Residents extends React.Component {
                               name={resident.name} 
                               roomNumber={resident.roomNumber} 
                               email={resident.email}
-                              lockouts={resident.lockouts} />
+                              lockouts={resident.lockouts}
+                              returns={resident.returns} />
                         )
                     }
-                    <Button onClick={this.openForm}>
+                    <Button type='primary' onClick={this.openForm}>
                         Add Resident
                     </Button>
                     <Modal

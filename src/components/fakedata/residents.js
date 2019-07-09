@@ -4,62 +4,86 @@ export const residents = [
         name: 'imtiaz khaled',
         roomNumber: '355A',
         email: 'imtiazkhaled@gmail.com',
-        lockouts: []
+        lockouts: [
+            {
+                key: '1',
+                checkOutItem: 'CARD',
+                itemCode: '9950',
+                checkOutDate: '5/12/2019',
+                checkoutTime: '9:00PM',
+                checkedOutBy: 'imtiaz',
+            }
+        ],
+        returns: [
+            {
+                checkInDate: '5/12/2019',
+                checkInTime: '10:00PM',
+                checkedInBy: 'imtiaz',
+            },
+        ],
     },
     {
         id: '2',
         name: 'michael ibanez',
         roomNumber: '323B',
         email: 'michaelibanez@gmail.com',
-        lockouts: []
+        lockouts: [],
+        returns: [],
     },
     {
         id: '3',
         name: 'jamshed jahangir',
         roomNumber: '375A',
         email: 'jamshedjahangir@gmail.com',
-        lockouts: []
+        lockouts: [],
+        returns: [],
     },
     {
         id: '4',
         name: 'imtiaz khaled',
         roomNumber: '355A',
         email: 'imtiazkhaled@gmail.com',
-        lockouts: []
+        lockouts: [],
+        returns: [],
     },
     {
         id: '5',
         name: 'michael ibanez',
         roomNumber: '323B',
         email: 'michaelibanez@gmail.com',
-        lockouts: []
+        lockouts: [],
+        returns: [],
     },
     {
         id: '6',
         name: 'jamshed jahangir',
         roomNumber: '375A',
         email: 'jamshedjahangir@gmail.com',
-        lockouts: []
+        lockouts: [],
+        returns: [],
     },
     {
         id: '7',
         name: 'imtiaz khaled',
         roomNumber: '355A',
         email: 'imtiazkhaled@gmail.com',
-        lockouts: []
+        lockouts: [],
+        returns: [],
     },
     {
         id: '8',
         name: 'michael ibanez',
         roomNumber: '323B',
         email: 'michaelibanez@gmail.com',
-        lockouts: []
+        lockouts: [],
+        returns: [],
     },
     {
         id: '9',
         name: 'jamshed jahangir',
         roomNumber: '375A',
         email: 'jamshedjahangir@gmail.com',
-        lockouts: []
+        lockouts: [],
+        returns: [],
     },
 ]

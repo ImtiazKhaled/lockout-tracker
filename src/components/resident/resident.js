@@ -1,5 +1,7 @@
 import React from 'react';
-import { Card, Col, Row } from 'antd';
+import { Card, Col, Row, Button } from 'antd';
+import Lockouts from '../lockout/lockouts';
+import Returns from '../lockout/returns';
 
 
 class Resident extends React.Component {
@@ -18,7 +20,30 @@ class Resident extends React.Component {
                     {this.props.email}
                 </Row>
                 <Row>
-                    {this.props.lockouts}
+                    {
+                        this.props.lockouts.length === 0 ?
+                            <div>no lockouts yet</div>
+                            :
+                            <div>
+                                <Col span={16}>
+                                    <Lockouts data={this.props.lockouts} />
+                                </Col>
+                                <Col span={8}>
+                                    {
+                                        this.props.returns.length === this.props.lockouts.length ?
+                                            <Returns data={this.props.returns} /> :
+                                            <Button type='secondary'>
+                                                Checkin Card
+                                            </Button>
+                                    }
+                                </Col>
+                            </div>
+                    }
+                </Row>
+                <Row>
+                    <Button type='primary'>
+                        Checkout Card
+                    </Button>
                 </Row>
             </Card>
         );
