@@ -101,4 +101,4 @@ class LockoutForm extends React.Component {
     }
 }
 
-export const CreateLockout = Form.create({ name: 'register' })(LockoutForm);
+export const CreateLockout = Form.create({ name: 'createLockout' })(LockoutForm);

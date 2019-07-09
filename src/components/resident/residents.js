@@ -3,6 +3,7 @@ import { Typography, Layout, Button, Modal, Row } from 'antd';
 import Resident from './resident'
 import { CreateResident } from './residentForm';
 import * as firebase from 'firebase';
+import { SearchResidents } from './searchForm';
 import { app } from '../config';
 const { Title } = Typography;
 const { Header, Content } = Layout;
@@ -14,6 +15,7 @@ class Residents extends React.Component {
         this.state = {
             residentsState: [],
             modalVisible: false,
+            filteredResidents: [],
         }
 
         this.addResident = this.addResident.bind(this);
@@ -33,13 +35,16 @@ class Residents extends React.Component {
                 email: snapshot.val().email,
                 lockouts: snapshot.val().lockouts,
                 returns: snapshot.val().returns,
+                numLockouts: snapshot.val().lockouts ? Object.keys(snapshot.val().lockouts).length : 0,
+                numReturns: snapshot.val().returns ? Object.keys(snapshot.val().returns).length : 0
             }
 
             let residents = this.state.residentsState;
             residents.push(resident);
 
             this.setState({
-                residentsState: residents
+                residentsState: residents,
+                filteredResidents: residents,
             });
         })
     }
@@ -69,7 +74,45 @@ class Residents extends React.Component {
         })
     }
 
+    searchResident = e => {
+        const search = {
+            searchName: e.searchName ? e.searchName.toLowerCase() : '',
+            searchRoomNumber: e.searchRoomNumber ? e.searchRoomNumber.toLowerCase() : '',
+            searchCheckout: e.searchCheckout ? e.searchCheckout : 'both',
+        }
+
+        console.log('this is clear state', search);
+
+        const filteredResidents = this.state.residentsState.filter(
+            (resident) => {
+                return resident.name.toLowerCase().indexOf(search.searchName) !== -1;
+            }
+        ).filter(
+            (resident) => {
+                return resident.roomNumber.toLowerCase().indexOf(search.searchRoomNumber) !== -1;
+            }
+        ).filter(
+            (resident) => {
+                if(search.searchCheckout === 'both') 
+                return resident;
+                else if(search.searchCheckout === 'checkedout') {
+                    return ( resident.numLockouts === resident.numReturns )
+                    !== ( search.searchCheckout === 'checkedout');
+                }else   {
+                    return ( resident.numLockouts !== resident.numReturns )
+                    !== ( search.searchCheckout !== 'checkedout');    
+                }
+                
+            }
+        )
+
+        this.setState({
+            filteredResidents: filteredResidents
+        })
+    }
+
     render() {
+
         return (
             <Layout>
                 <Header>
@@ -79,8 +122,11 @@ class Residents extends React.Component {
                 </Header>
                 <Content>
                     <Row>
+                        <SearchResidents onSearch={this.searchResident} />
+                    </Row>
+                    <Row>
                         {
-                            this.state.residentsState.map(resident =>
+                            this.state.filteredResidents.map(resident =>
                                 <Resident key={resident.key} data={resident} id={resident.key} />
                             )
                         }

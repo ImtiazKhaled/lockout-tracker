@@ -81,4 +81,4 @@ class ResidentForm extends React.Component {
     }
 }
 
-export const CreateResident = Form.create({ name: 'register' })(ResidentForm);
+export const CreateResident = Form.create({ name: 'createResident' })(ResidentForm);

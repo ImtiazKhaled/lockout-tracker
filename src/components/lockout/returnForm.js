@@ -66,4 +66,4 @@ class ReturnForm extends React.Component {
     }
 }
 
-export const CreateReturn = Form.create({ name: 'register' })(ReturnForm);
+export const CreateReturn = Form.create({ name: 'createReturn' })(ReturnForm);
