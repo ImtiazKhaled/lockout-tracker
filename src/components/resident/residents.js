@@ -1,5 +1,5 @@
 import React from 'react';
-import { Typography, Layout, Button, Modal } from 'antd';
+import { Typography, Layout, Button, Modal, Row } from 'antd';
 import Resident from './resident'
 import { CreateResident } from './residentForm';
 import { residents } from '../fakedata/residents';
@@ -12,7 +12,7 @@ class Residents extends React.Component {
         residentsState: [],
         modalVisible: false,
     }
-    
+
     componentDidMount = e => {
         this.setState({
             residentsState: residents
@@ -20,14 +20,14 @@ class Residents extends React.Component {
     }
 
     openForm = e => {
-        this.setState({ 
-            modalVisible: true, 
+        this.setState({
+            modalVisible: true,
         });
     }
 
     onCancel = e => {
-        this.setState({ 
-            modalVisible: false, 
+        this.setState({
+            modalVisible: false,
         });
     }
 
@@ -54,17 +54,19 @@ class Residents extends React.Component {
                     </Title>
                 </Header>
                 <Content>
-                    {
-                        this.state.residentsState.map(resident =>
-                            <Resident 
-                              key={resident.id} 
-                              name={resident.name} 
-                              roomNumber={resident.roomNumber} 
-                              email={resident.email}
-                              lockouts={resident.lockouts}
-                              returns={resident.returns} />
-                        )
-                    }
+                    <Row>
+                        {
+                            this.state.residentsState.map(resident =>
+                                <Resident
+                                    key={resident.id}
+                                    name={resident.name}
+                                    roomNumber={resident.roomNumber}
+                                    email={resident.email}
+                                    lockouts={resident.lockouts}
+                                    returns={resident.returns} />
+                            )
+                        }
+                    </Row>
                     <Button type='primary' onClick={this.openForm}>
                         Add Resident
                     </Button>
@@ -75,7 +77,7 @@ class Residents extends React.Component {
                         onCancel={this.onCancel}
                         footer={null}
                     >
-                        <CreateResident onSubmit={this.addResident} onCancel={this.onCancel}/>
+                        <CreateResident onSubmit={this.addResident} onCancel={this.onCancel} />
                     </Modal>
                 </Content>
             </Layout>

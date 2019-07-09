@@ -7,6 +7,7 @@ export const residents = [
         lockouts: [
             {
                 key: '1',
+                checkoutType: 'MAVX',
                 checkOutItem: 'CARD',
                 itemCode: '9950',
                 checkOutDate: '5/12/2019',

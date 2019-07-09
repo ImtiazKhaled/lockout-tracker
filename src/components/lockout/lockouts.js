@@ -3,6 +3,11 @@ import { Table, Divider, Tag } from 'antd';
 
 const columns = [
     {
+        title: 'Checkout Type',
+        dataIndex: 'checkoutType',
+        key: 'checkoutType',
+    },
+    {
         title: 'Checked Out',
         dataIndex: 'checkOutItem',
         key: 'checkOutItem',
