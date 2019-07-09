@@ -4,22 +4,63 @@ import Returns from '../lockout/returns';
 import { CreateLockout } from '../lockout/lockoutForm';
 import { CreateReturn } from '../lockout/returnForm';
 import { Card, Col, Row, Button, Modal } from 'antd';
+import * as firebase from 'firebase';
+import { app } from '../config';
 
 
 class Resident extends React.Component {
-    state = {
-        lockoutState: [],
-        returnState: [],
-        modalVisibleOne: false,
-        modalVisibleTwo: false,
+    constructor(props) {
+        super(props);
+        this.state = {
+            lockoutState: [],
+            returnState: [],
+            modalVisibleOne: false,
+            modalVisibleTwo: false,
+        }
+
+        this.addLockout = this.addLockout.bind(this);
+        this.addReturn = this.addReturn.bind(this);
     }
 
     componentDidMount = e => {
-        this.setState({
-            lockoutState: this.props.lockouts,
-            returnState: this.props.returns
+        this.db = firebase.database();
+        this.listenForChange();
+    }
+
+    listenForChange = e => {
+        this.db.ref('residents/' + this.props.id + '/lockouts').on('child_added', snapshot => {
+            let lockout = {
+                key: snapshot.key,
+                checkoutType: snapshot.val().checkoutType,
+                checkoutItem: snapshot.val().checkoutItem,
+                checkoutTime: snapshot.val().checkoutTime,
+                checkoutBy: snapshot.val().checkoutBy,
+            }
+
+            let lockouts = this.state.lockoutState;
+            lockouts.push(lockout);
+
+            this.setState({
+                lockoutState: lockouts
+            });
+        })
+
+        this.db.ref('residents/' + this.props.id + '/returns').on('child_added', snapshot => {
+            let returnItem = {
+                key: snapshot.key,
+                checkinTime: snapshot.val().checkinTime,
+                checkinBy: snapshot.val().checkinBy,
+            }
+
+            let returnItems = this.state.returnState;
+            returnItems.push(returnItem);
+
+            this.setState({
+                returnState: returnItems
+            });
         })
     }
+
 
     openFormOne = e => {
         this.setState({
@@ -41,31 +82,21 @@ class Resident extends React.Component {
     }
 
     addLockout = e => {
-        const lockout = {
-            // key: this.state.lockoutState.length + 1,
-            key: '1',
+        firebase.database().ref('residents/' + this.props.id + '/lockouts').push({
             checkoutType: e.checkoutType,
             checkoutItem: e.checkoutItemPrefix + ' ' + e.checkoutItemCode,
             checkoutTime: e.checkoutTime.format('HH:mm MM/DD/YY'),
             checkoutBy: e.checkoutBy,
-        }
-        this.setState({
-            lockoutState: [...this.state.lockoutState, lockout],
-            modalVisibleOne: false,
         })
+        this.onCancel()
     }
 
     addReturn = e => {
-        const returnItem = {
-            // key: this.state.returnState.length + 1,
-            key: '2',
+        firebase.database().ref('residents/' + this.props.id + '/returns').push({
             checkinTime: e.checkinTime.format('HH:mm MM/DD/YY'),
             checkinBy: e.checkinBy,
-        }
-        this.setState({
-            returnState: [...this.state.returnState, returnItem],
-            modalVisibleTwo: false,
         })
+        this.onCancel()
     }
 
     render() {
@@ -74,17 +105,17 @@ class Resident extends React.Component {
                 <Card>
                     <Row>
                         <Col span={6}>
-                            {this.props.name}
+                            {this.props.data.name}
                         </Col>
                         <Col span={12}>
-                            {this.props.email}
+                            {this.props.data.email}
                         </Col>
                         <Col span={6}>
-                            {this.props.roomNumber}
+                            {this.props.data.roomNumber}
                         </Col>
                     </Row>
                     <Row>
-                        {/* {
+                        {
                             this.state.lockoutState.length === 0 ?
                                 <div>no lockouts yet</div>
                                 :
@@ -128,7 +159,7 @@ class Resident extends React.Component {
                                         }
                                     </Col>
                                 </div>
-                        } */}
+                        }
                     </Row>
                     <Row>
                         <Button onClick={this.openFormOne} type='primary'>

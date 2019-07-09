@@ -15,26 +15,26 @@ class Residents extends React.Component {
             residentsState: [],
             modalVisible: false,
         }
-    
-    this.addResident = this.addResident.bind(this);
+
+        this.addResident = this.addResident.bind(this);
     }
 
     componentDidMount = e => {
         this.db = firebase.database();
         this.listenForChange();
     }
-    
+
     listenForChange = e => {
         this.db.ref('residents').on('child_added', snapshot => {
             let resident = {
-                id: snapshot.key,
+                key: snapshot.key,
                 name: snapshot.val().name,
                 roomNumber: snapshot.val().roomNumber,
                 email: snapshot.val().email,
                 lockouts: snapshot.val().lockouts,
                 returns: snapshot.val().returns,
             }
-            
+
             let residents = this.state.residentsState;
             residents.push(resident);
 
@@ -57,18 +57,12 @@ class Residents extends React.Component {
     }
 
     addResident = e => {
-        const resident = {
-            id: '1',
+        firebase.database().ref('residents').push({
             name: e.name,
             roomNumber: e.roomNumber,
             email: e.email,
-            lockouts: []
-        }
-        firebase.database().ref('residents').push({
-            name: resident.name,
-            roomNumber: resident.roomNumber,
-            email: resident.email,
-            lockouts: resident.lockouts,
+            lockouts: [],
+            returns: [],
         })
         this.setState({
             modalVisible: false,
@@ -87,13 +81,7 @@ class Residents extends React.Component {
                     <Row>
                         {
                             this.state.residentsState.map(resident =>
-                                <Resident
-                                    key={resident.id}
-                                    name={resident.name}
-                                    roomNumber={resident.roomNumber}
-                                    email={resident.email}
-                                    lockouts={resident.lockouts}
-                                    returns={resident.returns} />
+                                <Resident key={resident.key} data={resident} id={resident.key} />
                             )
                         }
                     </Row>
@@ -105,11 +93,7 @@ class Residents extends React.Component {
                         centered
                         visible={this.state.modalVisible}
                         onCancel={this.onCancel}
-                        footer={null}
-                    >
-                        {/* <Button onClick={this.addResident}>
-                            add to firebase
-                        </Button> */}
+                        footer={null}>
                         <CreateResident onSubmit={this.addResident} onCancel={this.onCancel} />
                     </Modal>
                 </Content>
