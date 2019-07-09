@@ -1,7 +1,9 @@
 import React from 'react';
 import Lockouts from '../lockout/lockouts';
 import Returns from '../lockout/returns';
-import { Card, Col, Row, Button } from 'antd';
+import { CreateLockout } from '../lockout/lockoutForm';
+import { CreateReturn } from '../lockout/returnForm';
+import { Card, Col, Row, Button, Modal } from 'antd';
 
 
 class Resident extends React.Component {
@@ -94,15 +96,33 @@ class Resident extends React.Component {
                                         this.state.returnState.length === this.state.lockoutState.length ?
                                             <Returns data={this.state.returnState} /> :
                                             this.state.returnState.length === 0 ?
-                                                <Button onClick={this.addReturn} type='secondary'>
-                                                    Checkin Card
-                                                </Button>
+                                                <div>
+                                                    <Button onClick={this.openFormTwo} type='secondary'>
+                                                        Checkin Card
+                                                    </Button>
+                                                    <Modal
+                                                        title='Checkin Card'
+                                                        centered
+                                                        visible={this.state.modalVisibleTwo}
+                                                        onCancel={this.onCancel}
+                                                        footer={null}>
+                                                        <CreateLockout onSubmit={this.addReturn} onCancel={this.onCancel} />
+                                                    </Modal>
+                                                </div>
                                                 :
                                                 <div>
                                                     <Returns data={this.state.returnState} />
-                                                    <Button onClick={this.addReturn} type='secondary'>
+                                                    <Button onClick={this.openFormTwo} type='secondary'>
                                                         Checkin Card
-                                                </Button>
+                                                        </Button>
+                                                    <Modal
+                                                        title='Checkin Card'
+                                                        centered
+                                                        visible={this.state.modalVisibleTwo}
+                                                        onCancel={this.onCancel}
+                                                        footer={null}>
+                                                        <CreateLockout onSubmit={this.addReturn} onCancel={this.onCancel} />
+                                                    </Modal>
                                                 </div>
                                     }
                                 </Col>
@@ -110,9 +130,17 @@ class Resident extends React.Component {
                     }
                 </Row>
                 <Row>
-                    <Button onClick={this.addLockout} type='primary'>
+                    <Button onClick={this.openFormOne} type='primary'>
                         Checkout Card
                     </Button>
+                    <Modal
+                        title='Checkout Card'
+                        centered
+                        visible={this.state.modalVisibleOne}
+                        onCancel={this.onCancel}
+                        footer={null}>
+                        <CreateReturn onSubmit={this.addLockout} onCancel={this.onCancel} />
+                    </Modal>
                 </Row>
             </Card>
         );
