@@ -69,9 +69,12 @@ class ResidentForm extends React.Component {
                 </Form.Item>
 
                 <Form.Item {...formItemLayout}>
+                    <Button type='secondary' onClick={this.props.onCancel}>
+                        Close
+                    </Button>
                     <Button type="primary" htmlType="submit">
                         Add Resident
-            </Button>
+                    </Button>
                 </Form.Item>
             </Form>
         );

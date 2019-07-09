@@ -15,6 +15,9 @@ class Resident extends React.Component {
                     </Col>
                 </Row>
                 <Row>
+                    {this.props.email}
+                </Row>
+                <Row>
                     {this.props.lockouts}
                 </Row>
             </Card>
