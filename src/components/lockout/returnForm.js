@@ -1,9 +1,6 @@
 import React from 'react';
-import {
-    Form,
-    Input,
-    Button,
-} from 'antd';
+import { Form, Input, Button, Select, DatePicker } from 'antd';
+
 
 class ReturnForm extends React.Component {
     state = {
@@ -14,7 +11,7 @@ class ReturnForm extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFieldsAndScroll((err, values) => {
-            if (!err) this.props.onSubmit(values);    
+            if (!err) this.props.onSubmit(values);
         });
     };
 
@@ -37,34 +34,22 @@ class ReturnForm extends React.Component {
             },
         };
 
+        const config = {
+            rules: [{ type: 'object', required: true, message: 'Please select time!' }],
+        };
+
         return (
             <Form {...formItemLayout} onSubmit={this.handleSubmit}>
 
-                <Form.Item label={'Name'} >
-                    {getFieldDecorator('name', {
-                        rules: [{ required: true, message: 'Please input residents name!', whitespace: true }],
-                    })(<Input />)}
+                <Form.Item label='Checkin Time'>
+                    {getFieldDecorator('checkinTime', config)(
+                        <DatePicker showTime format='HH:mm MM/DD/YY' />,
+                    )}
                 </Form.Item>
 
-                <Form.Item label={'Room Number'} >
-                    {getFieldDecorator('roomNumber', {
-                        rules: [{ required: true, message: 'Please input residents roomnumber!', whitespace: true }],
-                    })(<Input />)}
-                </Form.Item>
-
-
-                <Form.Item label="Email" >
-                    {getFieldDecorator('email', {
-                        rules: [
-                            {
-                                type: 'email',
-                                message: 'The input is not valid E-mail!',
-                            },
-                            {
-                                required: true,
-                                message: 'Please input your E-mail!',
-                            },
-                        ],
+                <Form.Item label={'Checked In By'} >
+                    {getFieldDecorator('checkinBy', {
+                        rules: [{ required: true, message: 'Please enter who is checking this in', whitespace: true }],
                     })(<Input />)}
                 </Form.Item>
 
@@ -72,8 +57,8 @@ class ReturnForm extends React.Component {
                     <Button type='secondary' onClick={this.props.onCancel}>
                         Close
                     </Button>
-                    <Button type="primary" htmlType="submit">
-                        Add Resident
+                    <Button type='primary' htmlType='submit'>
+                        Checkin Card
                     </Button>
                 </Form.Item>
             </Form>

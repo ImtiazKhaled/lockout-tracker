@@ -78,7 +78,7 @@ class LockoutForm extends React.Component {
 
                 <Form.Item label='Checkout Time'>
                     {getFieldDecorator('checkoutTime', config)(
-                        <DatePicker showTime format='HH:mm MM-DD-YYYY' />,
+                        <DatePicker showTime format='HH:mm MM/DD/YY' />,
                     )}
                 </Form.Item>
 

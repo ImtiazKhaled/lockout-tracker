@@ -45,7 +45,7 @@ class Resident extends React.Component {
             key: this.state.lockoutState.length + 1,
             checkoutType: e.checkoutType,
             checkoutItem: e.checkoutItemPrefix + ' ' + e.checkoutItemCode,
-            checkoutTime: e.checkoutTime.format('HH:mm MM-DD-YYYY'),
+            checkoutTime: e.checkoutTime.format('HH:mm MM/DD/YY'),
             checkoutBy: e.checkoutBy,
         }
         this.setState({
@@ -57,8 +57,8 @@ class Resident extends React.Component {
     addReturn = e => {
         const returnItem = {
             key: this.state.returnState.length + 1,
-            checkinTime: '10:00PM',
-            checkedInBy: 'imtiaz',
+            checkinTime: e.checkinTime.format('HH:mm MM/DD/YY'),
+            checkinBy: e.checkinBy,
         }
         this.setState({
             returnState: [...this.state.returnState, returnItem],

@@ -26,7 +26,16 @@ export const residents = [
         name: 'michael ibanez',
         roomNumber: '323B',
         email: 'michaelibanez@gmail.com',
-        lockouts: [],
+        lockouts: [
+            {
+                key: '1',
+                checkoutType: 'MAVX',
+                checkoutItem: 'CARD 3226',
+                checkOutDate: '5/12/2019',
+                checkoutTime: '9:00PM',
+                checkoutBy: 'imtiaz',
+            }
+        ],
         returns: [],
     },
     {
