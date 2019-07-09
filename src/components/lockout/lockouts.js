@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Divider, Tag } from 'antd';
+import { Table } from 'antd';
 
 const columns = [
     {
@@ -28,7 +28,7 @@ const columns = [
 class Lockouts extends React.Component {
     render() {
         return (
-            <Table pagination={false} columns={columns} dataSource={this.props.data} />
+            <Table pagination={false} columns={columns} dataSource={this.props.data} rowKey='key' />
         );
     }
 }

@@ -6,7 +6,7 @@ export const residents = [
         email: 'imtiazkhaled@gmail.com',
         lockouts: [
             {
-                key: '1',
+                key: '0',
                 checkoutType: 'MAVX',
                 checkoutItem: 'CARD 3226',
                 checkOutDate: '5/12/2019',
@@ -16,6 +16,7 @@ export const residents = [
         ],
         returns: [
             {
+                key: '0',
                 checkinTime: '10:00PM',
                 checkinBy: 'imtiaz',
             },
@@ -28,7 +29,7 @@ export const residents = [
         email: 'michaelibanez@gmail.com',
         lockouts: [
             {
-                key: '1',
+                key: '0',
                 checkoutType: 'MAVX',
                 checkoutItem: 'CARD 3226',
                 checkOutDate: '5/12/2019',
