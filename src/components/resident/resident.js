@@ -1,47 +1,116 @@
 import React from 'react';
-import { Card, Col, Row, Button } from 'antd';
 import Lockouts from '../lockout/lockouts';
 import Returns from '../lockout/returns';
+import { Card, Col, Row, Button } from 'antd';
 
 
 class Resident extends React.Component {
+    state = {
+        lockoutState: [],
+        returnState: [],
+        modalVisibleOne: false,
+        modalVisibleTwo: false,
+    }
+
+    componentDidMount = e => {
+        this.setState({
+            lockoutState: this.props.lockouts,
+            returnState: this.props.returns
+        })
+    }
+
+    openFormOne = e => {
+        this.setState({
+            modalVisibleOne: true,
+        });
+    }
+
+    openFormTwo = e => {
+        this.setState({
+            modalVisibleTwo: true,
+        });
+    }
+
+    onCancel = e => {
+        this.setState({
+            modalVisibleOne: false,
+            modalVisibleTwo: false,
+        });
+    }
+
+    addLockout = e => {
+        const lockout = {
+            key: this.state.lockoutState.length + 1,
+            checkOutItem: 'CARD',
+            itemCode: '9950',
+            checkOutDate: '5/12/2019',
+            checkoutTime: '9:00PM',
+            checkedOutBy: 'imtiaz',
+        }
+        this.setState({
+            lockoutState: [...this.state.lockoutState, lockout],
+            modalVisibleOne: false,
+        })
+    }
+
+    addReturn = e => {
+        const returnItem = {
+            key: this.state.returnState.length + 1,
+            checkInDate: '5/12/2019',
+            checkInTime: '10:00PM',
+            checkedInBy: 'imtiaz',
+        }
+        this.setState({
+            returnState: [...this.state.returnState, returnItem],
+            modalVisibleTwo: false,
+        })
+    }
+
     render() {
         return (
             <Card>
                 <Row>
-                    <Col span={12}>
+                    <Col span={8}>
                         {this.props.name}
                     </Col>
-                    <Col span={12}>
+                    <Col span={8}>
+                        {this.props.email}
+                    </Col>
+                    <Col span={8}>
                         {this.props.roomNumber}
                     </Col>
                 </Row>
                 <Row>
-                    {this.props.email}
-                </Row>
-                <Row>
                     {
-                        this.props.lockouts.length === 0 ?
+                        this.state.lockoutState.length === 0 ?
                             <div>no lockouts yet</div>
                             :
                             <div>
                                 <Col span={16}>
-                                    <Lockouts data={this.props.lockouts} />
+                                    <Lockouts data={this.state.lockoutState} />
                                 </Col>
                                 <Col span={8}>
                                     {
-                                        this.props.returns.length === this.props.lockouts.length ?
-                                            <Returns data={this.props.returns} /> :
-                                            <Button type='secondary'>
-                                                Checkin Card
-                                            </Button>
+                                        this.state.returnState.length === this.state.lockoutState.length ?
+                                            <Returns data={this.state.returnState} /> :
+                                            this.state.returnState.length === 0 ?
+                                                <Button onClick={this.addReturn} type='secondary'>
+                                                    Checkin Card
+                                                </Button>
+                                                :
+                                                <div>
+                                                    <Returns data={this.state.returnState} />
+                                                    <Button onClick={this.addReturn} type='secondary'>
+                                                        Checkin Card
+                                                </Button>
+                                                </div>
                                     }
                                 </Col>
                             </div>
                     }
                 </Row>
                 <Row>
-                    <Button type='primary'>
+                    <Button onClick={this.addLockout} type='primary'>
                         Checkout Card
                     </Button>
                 </Row>
