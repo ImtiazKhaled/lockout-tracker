@@ -3,24 +3,14 @@ import { Table, Divider, Tag } from 'antd';
 
 const columns = [
     {
-        title: 'Checkout Type',
+        title: 'Type',
         dataIndex: 'checkoutType',
         key: 'checkoutType',
     },
     {
-        title: 'Checked Out',
-        dataIndex: 'checkOutItem',
-        key: 'checkOutItem',
-    },
-    {
-        title: 'Code',
-        dataIndex: 'itemCode',
-        key: 'itemCode',
-    },
-    {
-        title: 'Checkout Date',
-        dataIndex: 'checkOutDate',
-        key: 'checkOutDate',
+        title: 'Item',
+        dataIndex: 'checkoutItem',
+        key: 'checkoutItem',
     },
     {
         title: 'Checkout Time',
@@ -28,9 +18,9 @@ const columns = [
         key: 'checkoutTime',
     },
     {
-        title: 'Checkedout By',
-        dataIndex: 'checkedOutBy',
-        key: 'checkedOutBy',
+        title: 'Checkout By',
+        dataIndex: 'checkoutBy',
+        key: 'checkoutBy',
     },
     
 ];

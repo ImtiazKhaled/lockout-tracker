@@ -43,12 +43,10 @@ class Resident extends React.Component {
     addLockout = e => {
         const lockout = {
             key: this.state.lockoutState.length + 1,
-            checkoutType: 'MAVX',
-            checkOutItem: 'CARD',
-            itemCode: '9950',
-            checkOutDate: '5/12/2019',
-            checkoutTime: '9:00PM',
-            checkedOutBy: 'imtiaz',
+            checkoutType: e.checkoutType,
+            checkoutItem: e.checkoutItemPrefix + ' ' + e.checkoutItemCode,
+            checkoutTime: e.checkoutTime.format('HH:mm MM-DD-YYYY'),
+            checkoutBy: e.checkoutBy,
         }
         this.setState({
             lockoutState: [...this.state.lockoutState, lockout],
@@ -59,8 +57,7 @@ class Resident extends React.Component {
     addReturn = e => {
         const returnItem = {
             key: this.state.returnState.length + 1,
-            checkInDate: '5/12/2019',
-            checkInTime: '10:00PM',
+            checkinTime: '10:00PM',
             checkedInBy: 'imtiaz',
         }
         this.setState({
@@ -71,7 +68,7 @@ class Resident extends React.Component {
 
     render() {
         return (
-            <Col span={12}>
+            <Col span={24}>
                 <Card>
                     <Row>
                         <Col span={6}>
@@ -108,7 +105,7 @@ class Resident extends React.Component {
                                                             visible={this.state.modalVisibleTwo}
                                                             onCancel={this.onCancel}
                                                             footer={null}>
-                                                            <CreateLockout onSubmit={this.addReturn} onCancel={this.onCancel} />
+                                                            <CreateReturn onSubmit={this.addReturn} onCancel={this.onCancel} />
                                                         </Modal>
                                                     </div>
                                                     :
@@ -123,7 +120,7 @@ class Resident extends React.Component {
                                                             visible={this.state.modalVisibleTwo}
                                                             onCancel={this.onCancel}
                                                             footer={null}>
-                                                            <CreateLockout onSubmit={this.addReturn} onCancel={this.onCancel} />
+                                                            <CreateReturn onSubmit={this.addReturn} onCancel={this.onCancel} />
                                                         </Modal>
                                                     </div>
                                         }
@@ -141,7 +138,7 @@ class Resident extends React.Component {
                             visible={this.state.modalVisibleOne}
                             onCancel={this.onCancel}
                             footer={null}>
-                            <CreateReturn onSubmit={this.addLockout} onCancel={this.onCancel} />
+                            <CreateLockout onSubmit={this.addLockout} onCancel={this.onCancel} />
                         </Modal>
                     </Row>
                 </Card>

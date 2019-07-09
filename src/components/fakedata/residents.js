@@ -8,18 +8,16 @@ export const residents = [
             {
                 key: '1',
                 checkoutType: 'MAVX',
-                checkOutItem: 'CARD',
-                itemCode: '9950',
+                checkoutItem: 'CARD 3226',
                 checkOutDate: '5/12/2019',
                 checkoutTime: '9:00PM',
-                checkedOutBy: 'imtiaz',
+                checkoutBy: 'imtiaz',
             }
         ],
         returns: [
             {
-                checkInDate: '5/12/2019',
-                checkInTime: '10:00PM',
-                checkedInBy: 'imtiaz',
+                checkinTime: '10:00PM',
+                checkinBy: 'imtiaz',
             },
         ],
     },
