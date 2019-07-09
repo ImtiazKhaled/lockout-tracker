@@ -7,18 +7,17 @@ export const residents = [
         lockouts: [
             {
                 key: '0',
-                checkoutType: 'MAVX',
+                checkoutType: 'free',
                 checkoutItem: 'CARD 3226',
-                checkOutDate: '5/12/2019',
-                checkoutTime: '9:00PM',
+                checkoutTime: '9:00 5/12/19',
                 checkoutBy: 'imtiaz',
             }
         ],
         returns: [
             {
                 key: '0',
-                checkinTime: '10:00PM',
-                checkinBy: 'imtiaz',
+                checkinTime: '20:00 6/18/19',
+                checkinBy: 'khaled',
             },
         ],
     },
@@ -30,10 +29,9 @@ export const residents = [
         lockouts: [
             {
                 key: '0',
-                checkoutType: 'MAVX',
+                checkoutType: 'free',
                 checkoutItem: 'CARD 3226',
-                checkOutDate: '5/12/2019',
-                checkoutTime: '9:00PM',
+                checkoutTime: '9:00 5/12/2019',
                 checkoutBy: 'imtiaz',
             }
         ],
