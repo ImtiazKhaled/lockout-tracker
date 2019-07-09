@@ -1,6 +1,7 @@
 import React from 'react';
-import { Typography, Layout, Button } from 'antd';
+import { Typography, Layout } from 'antd';
 import Resident from './resident'
+import { CreateResident } from './residentForm';
 import { residents } from '../fakedata/residents';
 const { Title } = Typography;
 const { Header, Content } = Layout;
@@ -18,16 +19,16 @@ class Residents extends React.Component {
     }
 
     addResident = e => {
-        // console.log(this.state.residentsState);
         const resident = {
             id: this.state.residentsState.length + 1,
-            name: 'parjal sharma',
-            roomNumber: '235B',
+            name: e.name,
+            roomNumber: e.roomNumber,
             lockouts: []
         }
         this.setState({
             residentsState: [...this.state.residentsState, resident]
         })
+        // console.log('made it, data is', e);
     }
     render() {
         return (
@@ -43,9 +44,7 @@ class Residents extends React.Component {
                             <Resident key={resident.id} name={resident.name} roomNumber={resident.roomNumber} lockouts={resident.lockouts} />
                         )
                     }
-                    <Button type='primary' onClick={this.addResident}>
-                        add resident
-                    </Button>
+                    <CreateResident onSubmit={this.addResident} />
                 </Content>
             </Layout>
         );

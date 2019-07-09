@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Residents from './components/student/residents';
+import Residents from './components/resident/residents';
 
 function App() {
   return (
