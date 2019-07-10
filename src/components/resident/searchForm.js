@@ -36,61 +36,40 @@ class SearchForm extends React.Component {
         const { getFieldDecorator } = this.props.form;
 
         const formItemLayout = {
-            labelCol: {
-                xs: { span: 24 },
-                sm: { span: 4 },
-            },
-            wrapperCol: {
-                xs: { span: 24 },
-                sm: { span: 20 },
-            },
+            layout: 'vertical',
         };
 
         return (
             <Form {...formItemLayout} onSubmit={this.handleSubmit}>
-
-                <Row>
-                    <Col span={8}>
-                        <Form.Item label={'Name'} >
-                            {getFieldDecorator('searchName', {
-                                rules: [],
-                            })(<Input placeholder='Enter Search Name' />)}
-                        </Form.Item>
-                    </Col>
-
-                    <Col span={8}>
-                        <Form.Item label={'Room'} >
-                            {getFieldDecorator('searchRoomNumber', {
-                                rules: [],
-                            })(<Input placeholder='Enter Room Number' />)}
-                        </Form.Item>
-                    </Col>
-
-                    <Col span={8}>
-                        <Form.Item label='Checked Out'>
-                            {getFieldDecorator('searchCheckout', {
-                                rules: [],
-                            })(
-                                <Select placeholder='Please select a checkout type'>
-                                    <Option value='both'>Both</Option>
-                                    <Option value='checkedout'>Checked Out</Option>
-                                    <Option value='instock'>In Stock</Option>
-                                </Select>,
-                            )}
-                        </Form.Item>
-                    </Col>
-                </Row>
-
-                <Row>
-                    <Form.Item {...formItemLayout}>
-                        <Button type='secondary' onClick={this.handleClear}>
-                            Clear
+                <Form.Item style={this.props.responsive.FilterFields}>
+                    {getFieldDecorator('searchName', {
+                        rules: [],
+                    })(<Input placeholder='Enter Search Name' />)}
+                </Form.Item>
+                <Form.Item style={this.props.responsive.FilterFields}>
+                    {getFieldDecorator('searchRoomNumber', {
+                        rules: [],
+                    })(<Input placeholder='Enter Room Number' />)}
+                </Form.Item>
+                <Form.Item style={this.props.responsive.FilterFields}>
+                    {getFieldDecorator('searchCheckout', {
+                        rules: [],
+                    })(
+                        <Select placeholder='Please select a checkout type'>
+                            <Option value='both'>Both</Option>
+                            <Option value='checkedout'>Checked Out</Option>
+                            <Option value='instock'>In Stock</Option>
+                        </Select>,
+                    )}
+                </Form.Item>
+                <Form.Item style={this.props.responsive.FilterButtons} {...formItemLayout}>
+                    <Button style={this.props.responsive.AddButton} type='secondary' onClick={this.handleClear}>
+                        Clear
                         </Button>
-                        <Button type="primary" htmlType="submit">
-                            Search
+                    <Button style={this.props.responsive.AddButton} type="primary" htmlType="submit">
+                        Search
                         </Button>
-                    </Form.Item>
-                </Row>
+                </Form.Item>
             </Form>
         );
     }

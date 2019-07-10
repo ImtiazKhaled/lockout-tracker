@@ -101,17 +101,21 @@ class Resident extends React.Component {
 
     render() {
         return (
-            <Col span={24}>
+            <div style={this.props.responsive.Resident}>
                 <Card>
                     <Row>
-                        <Col span={6}>
-                            {this.props.data.name}
+                        <Col style={this.props.responsive.ResidentInfo} span={12}>
+                            <Row>
+                                {this.props.data.name}
+                            </Row>
+                            <Row>
+                                {this.props.data.roomNumber}
+                            </Row>
+                            <Row>
+                                {this.props.data.email}
+                            </Row>
                         </Col>
                         <Col span={12}>
-                            {this.props.data.email}
-                        </Col>
-                        <Col span={6}>
-                            {this.props.data.roomNumber}
                         </Col>
                     </Row>
                     <Row>
@@ -129,7 +133,7 @@ class Resident extends React.Component {
                                                 <Returns data={this.state.returnState} /> :
                                                 this.state.returnState.length === 0 ?
                                                     <div>
-                                                        <Button onClick={this.openFormTwo} type='secondary'>
+                                                        <Button style={this.props.responsive.AddButton} onClick={this.openFormTwo} type='secondary'>
                                                             Checkin Card
                                                     </Button>
                                                         <Modal
@@ -138,13 +142,13 @@ class Resident extends React.Component {
                                                             visible={this.state.modalVisibleTwo}
                                                             onCancel={this.onCancel}
                                                             footer={null}>
-                                                            <CreateReturn onSubmit={this.addReturn} onCancel={this.onCancel} />
+                                                            <CreateReturn responsive={this.props.responsive} onSubmit={this.addReturn} onCancel={this.onCancel} />
                                                         </Modal>
                                                     </div>
                                                     :
                                                     <div>
                                                         <Returns data={this.state.returnState} />
-                                                        <Button onClick={this.openFormTwo} type='secondary'>
+                                                        <Button style={this.props.responsive.AddButton} onClick={this.openFormTwo} type='secondary'>
                                                             Checkin Card
                                                         </Button>
                                                         <Modal
@@ -153,7 +157,7 @@ class Resident extends React.Component {
                                                             visible={this.state.modalVisibleTwo}
                                                             onCancel={this.onCancel}
                                                             footer={null}>
-                                                            <CreateReturn onSubmit={this.addReturn} onCancel={this.onCancel} />
+                                                            <CreateReturn responsive={this.props.responsive} onSubmit={this.addReturn} onCancel={this.onCancel} />
                                                         </Modal>
                                                     </div>
                                         }
@@ -162,20 +166,20 @@ class Resident extends React.Component {
                         }
                     </Row>
                     <Row>
-                        <Button onClick={this.openFormOne} type='primary'>
+                        <Button style={this.props.responsive.AddButton} onClick={this.openFormOne} type='primary'>
                             Checkout Card
-                    </Button>
+                        </Button>
                         <Modal
                             title='Checkout Card'
                             centered
                             visible={this.state.modalVisibleOne}
                             onCancel={this.onCancel}
                             footer={null}>
-                            <CreateLockout onSubmit={this.addLockout} onCancel={this.onCancel} />
+                            <CreateLockout responsive={this.props.responsive} onSubmit={this.addLockout} onCancel={this.onCancel} />
                         </Modal>
                     </Row>
                 </Card>
-            </Col>
+            </div>
         );
     }
 }

@@ -26,12 +26,13 @@ class ReturnForm extends React.Component {
         const formItemLayout = {
             labelCol: {
                 xs: { span: 24 },
-                sm: { span: 8 },
+                sm: { span: 24 },
             },
             wrapperCol: {
                 xs: { span: 24 },
-                sm: { span: 16 },
+                sm: { span: 24 },
             },
+            labelAlign: 'left'
         };
 
         const config = {
@@ -53,11 +54,11 @@ class ReturnForm extends React.Component {
                     })(<Input />)}
                 </Form.Item>
 
-                <Form.Item {...formItemLayout}>
-                    <Button type='secondary' onClick={this.props.onCancel}>
+                <Form.Item style={this.props.responsive.FilterButtons} {...formItemLayout}>
+                    <Button style={this.props.responsive.AddButton} type='secondary' onClick={this.props.onCancel}>
                         Close
                     </Button>
-                    <Button type='primary' htmlType='submit'>
+                    <Button style={this.props.responsive.AddButton} type='primary' htmlType='submit'>
                         Checkin Card
                     </Button>
                 </Form.Item>

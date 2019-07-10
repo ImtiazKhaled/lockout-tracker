@@ -5,8 +5,9 @@ import { CreateResident } from './residentForm';
 import * as firebase from 'firebase';
 import { SearchResidents } from './searchForm';
 import { app } from '../config';
+import { styles } from '../styles.js/styles';
 const { Title } = Typography;
-const { Header, Content } = Layout;
+const { Content, Footer } = Layout;
 
 
 class Residents extends React.Component {
@@ -91,16 +92,16 @@ class Residents extends React.Component {
             }
         ).filter(
             (resident) => {
-                if(search.searchCheckout === 'both') 
-                return resident;
-                else if(search.searchCheckout === 'checkedout') {
-                    return ( resident.numLockouts === resident.numReturns )
-                    !== ( search.searchCheckout === 'checkedout');
-                }else   {
-                    return ( resident.numLockouts !== resident.numReturns )
-                    !== ( search.searchCheckout !== 'checkedout');    
+                if (search.searchCheckout === 'both')
+                    return resident;
+                else if (search.searchCheckout === 'checkedout') {
+                    return (resident.numLockouts === resident.numReturns)
+                        !== (search.searchCheckout === 'checkedout');
+                } else {
+                    return (resident.numLockouts !== resident.numReturns)
+                        !== (search.searchCheckout !== 'checkedout');
                 }
-                
+
             }
         )
 
@@ -113,34 +114,45 @@ class Residents extends React.Component {
 
         return (
             <Layout>
-                <Header>
-                    <Title style={{ color: 'white' }}>
-                        Residents
-                    </Title>
-                </Header>
+                <div style={styles.HeaderBar}>
+                    <div style={styles.Title}>
+                        KC Hall Lockouts
+                        </div>
+                    <SearchResidents responsive={styles} onSearch={this.searchResident} />
+                </div>
                 <Content>
-                    <Row>
-                        <SearchResidents onSearch={this.searchResident} />
-                    </Row>
-                    <Row>
-                        {
-                            this.state.filteredResidents.map(resident =>
-                                <Resident key={resident.key} data={resident} id={resident.key} />
-                            )
-                        }
-                    </Row>
-                    <Button type='primary' onClick={this.openForm}>
-                        Add Resident
-                    </Button>
+                    <div style={styles.MainContainer}>
+                        <div>
+                            {
+                                Object.keys(this.state.filteredResidents).length === 0 ?
+                                    <div style={styles.NoResident} > No Resident Found </div>
+                                    :
+                                    this.state.filteredResidents.map(resident =>
+                                        <Resident
+                                            responsive={styles}
+                                            key={resident.key}
+                                            data={resident}
+                                            id={resident.key} />
+                                    )
+                            }
+                        </div>
+                        <div style={styles.AddResidentButtonContainer}>
+                            <Button style={styles.AddButton} type='primary' onClick={this.openForm}>
+                                Add Resident
+                        </Button>
+                        </div>
+                    </div>
                     <Modal
                         title='Add New Resident'
                         centered
                         visible={this.state.modalVisible}
                         onCancel={this.onCancel}
                         footer={null}>
-                        <CreateResident onSubmit={this.addResident} onCancel={this.onCancel} />
+                        <CreateResident responsive={styles} onSubmit={this.addResident} onCancel={this.onCancel} />
                     </Modal>
                 </Content>
+                <Footer style={styles.Footer}>Imtiaz Mujtaba Khaled ©2019</Footer>
+
             </Layout>
         );
     }
