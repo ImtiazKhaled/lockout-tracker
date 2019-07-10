@@ -1,10 +1,13 @@
 import React from 'react';
 import './App.css';
 import Residents from './components/resident/residents';
+import { BreakpointProvider } from 'react-socks';
 
 function App() {
   return (
-    <Residents />
+    <BreakpointProvider>
+      <Residents />
+    </BreakpointProvider>
   );
 }
 

@@ -15,12 +15,18 @@ const columns = [
     
 ];
 
-class Returns extends React.Component {
+export class Returns extends React.Component {
     render() {
         return (
-            <Table pagination={false} columns={columns} dataSource={this.props.data} />
+            <Table pagination={false} columns={columns} dataSource={this.props.data}/>
         );
     }
 }
 
-export default Returns;
+export class ReturnsS extends React.Component {
+    render() {
+        return (
+            <Table pagination={false} columns={columns} dataSource={this.props.data} scroll={{ x: 100 }}/>
+        );
+    }
+}

@@ -25,12 +25,18 @@ const columns = [
     
 ];
 
-class Lockouts extends React.Component {
+export class Lockouts extends React.Component {
     render() {
         return (
-            <Table pagination={false} columns={columns} dataSource={this.props.data} rowKey='key' />
+            <Table pagination={false} columns={columns} dataSource={this.props.data}/>
         );
     }
 }
 
-export default Lockouts;
+export class LockoutsS extends React.Component {
+    render() {
+        return (
+            <Table pagination={false} columns={columns} dataSource={this.props.data} scroll={{ x: 180 }}/>
+        );
+    }
+}

@@ -1,10 +1,11 @@
 import React from 'react';
-import Lockouts from '../lockout/lockouts';
-import Returns from '../lockout/returns';
+import { Lockouts, LockoutsS} from '../lockout/lockouts';
+import { Returns,  ReturnsS } from '../lockout/returns';
 import { CreateLockout } from '../lockout/lockoutForm';
 import { CreateReturn } from '../lockout/returnForm';
 import { Card, Col, Row, Button, Modal } from 'antd';
 import * as firebase from 'firebase';
+import Breakpoint from 'react-socks';
 import { app } from '../config';
 
 
@@ -124,44 +125,87 @@ class Resident extends React.Component {
                                 <div>no lockouts yet</div>
                                 :
                                 <div>
-                                    <Col span={16}>
-                                        <Lockouts data={this.state.lockoutState} />
-                                    </Col>
-                                    <Col span={8}>
-                                        {
-                                            this.state.returnState.length === this.state.lockoutState.length ?
-                                                <Returns data={this.state.returnState} /> :
-                                                this.state.returnState.length === 0 ?
-                                                    <div>
-                                                        <Button style={this.props.responsive.AddButton} onClick={this.openFormTwo} type='secondary'>
-                                                            Checkin Card
+                                    <Breakpoint xsmall only>
+                                        <Col span={16}>
+                                            <LockoutsS data={this.state.lockoutState} />
+                                        </Col>
+                                        <Col span={8}>
+                                            {
+                                                this.state.returnState.length === this.state.lockoutState.length ?
+                                                    <ReturnsS data={this.state.returnState} /> :
+                                                    this.state.returnState.length === 0 ?
+                                                        <div>
+                                                            <Button style={this.props.responsive.AddButton} onClick={this.openFormTwo} type='secondary'>
+                                                                Checkin Card
                                                     </Button>
-                                                        <Modal
-                                                            title='Checkin Card'
-                                                            centered
-                                                            visible={this.state.modalVisibleTwo}
-                                                            onCancel={this.onCancel}
-                                                            footer={null}>
-                                                            <CreateReturn responsive={this.props.responsive} onSubmit={this.addReturn} onCancel={this.onCancel} />
-                                                        </Modal>
-                                                    </div>
-                                                    :
-                                                    <div>
-                                                        <Returns data={this.state.returnState} />
-                                                        <Button style={this.props.responsive.AddButton} onClick={this.openFormTwo} type='secondary'>
-                                                            Checkin Card
+                                                            <Modal
+                                                                title='Checkin Card'
+                                                                centered
+                                                                visible={this.state.modalVisibleTwo}
+                                                                onCancel={this.onCancel}
+                                                                footer={null}>
+                                                                <CreateReturn responsive={this.props.responsive} onSubmit={this.addReturn} onCancel={this.onCancel} />
+                                                            </Modal>
+                                                        </div>
+                                                        :
+                                                        <div>
+                                                            <ReturnsS data={this.state.returnState} />
+                                                            <Button style={this.props.responsive.AddButton} onClick={this.openFormTwo} type='secondary'>
+                                                                Checkin Card
                                                         </Button>
-                                                        <Modal
-                                                            title='Checkin Card'
-                                                            centered
-                                                            visible={this.state.modalVisibleTwo}
-                                                            onCancel={this.onCancel}
-                                                            footer={null}>
-                                                            <CreateReturn responsive={this.props.responsive} onSubmit={this.addReturn} onCancel={this.onCancel} />
-                                                        </Modal>
-                                                    </div>
-                                        }
-                                    </Col>
+                                                            <Modal
+                                                                title='Checkin Card'
+                                                                centered
+                                                                visible={this.state.modalVisibleTwo}
+                                                                onCancel={this.onCancel}
+                                                                footer={null}>
+                                                                <CreateReturn responsive={this.props.responsive} onSubmit={this.addReturn} onCancel={this.onCancel} />
+                                                            </Modal>
+                                                        </div>
+                                            }
+                                        </Col>
+                                    </Breakpoint>
+                                    <Breakpoint small up>
+                                        <Col span={16}>
+                                            <Lockouts data={this.state.lockoutState} />
+                                        </Col>
+                                        <Col span={8}>
+                                            {
+                                                this.state.returnState.length === this.state.lockoutState.length ?
+                                                    <Returns data={this.state.returnState} /> :
+                                                    this.state.returnState.length === 0 ?
+                                                        <div>
+                                                            <Button style={this.props.responsive.AddButton} onClick={this.openFormTwo} type='secondary'>
+                                                                Checkin Card
+                                                    </Button>
+                                                            <Modal
+                                                                title='Checkin Card'
+                                                                centered
+                                                                visible={this.state.modalVisibleTwo}
+                                                                onCancel={this.onCancel}
+                                                                footer={null}>
+                                                                <CreateReturn responsive={this.props.responsive} onSubmit={this.addReturn} onCancel={this.onCancel} />
+                                                            </Modal>
+                                                        </div>
+                                                        :
+                                                        <div>
+                                                            <Returns data={this.state.returnState} />
+                                                            <Button style={this.props.responsive.AddButton} onClick={this.openFormTwo} type='secondary'>
+                                                                Checkin Card
+                                                        </Button>
+                                                            <Modal
+                                                                title='Checkin Card'
+                                                                centered
+                                                                visible={this.state.modalVisibleTwo}
+                                                                onCancel={this.onCancel}
+                                                                footer={null}>
+                                                                <CreateReturn responsive={this.props.responsive} onSubmit={this.addReturn} onCancel={this.onCancel} />
+                                                            </Modal>
+                                                        </div>
+                                            }
+                                        </Col>
+                                    </Breakpoint>
+
                                 </div>
                         }
                     </Row>
