@@ -1,9 +1,10 @@
 import React from 'react';
-import { Lockouts, LockoutsS} from '../lockout/lockouts';
-import { Returns,  ReturnsS } from '../lockout/returns';
+import { Lockouts, LockoutsS } from '../lockout/lockouts';
+import { Returns, ReturnsS } from '../lockout/returns';
 import { CreateLockout } from '../lockout/lockoutForm';
 import { CreateReturn } from '../lockout/returnForm';
 import { Card, Col, Row, Button, Modal } from 'antd';
+import ResidentPrint from './residentPrint';
 import * as firebase from 'firebase';
 import Breakpoint from 'react-socks';
 import { app } from '../config';
@@ -62,7 +63,6 @@ class Resident extends React.Component {
         })
     }
 
-
     openFormOne = e => {
         this.setState({
             modalVisibleOne: true,
@@ -100,7 +100,7 @@ class Resident extends React.Component {
         this.onCancel()
     }
 
-    render() {
+    render() {  
         return (
             <div style={this.props.responsive.Resident}>
                 <Card>
@@ -221,6 +221,7 @@ class Resident extends React.Component {
                             footer={null}>
                             <CreateLockout responsive={this.props.responsive} onSubmit={this.addLockout} onCancel={this.onCancel} />
                         </Modal>
+                        <ResidentPrint data={this.props.data} lockoutState={this.state.lockoutState} returnState={this.state.returnState} />
                     </Row>
                 </Card>
             </div>

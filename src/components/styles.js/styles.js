@@ -41,7 +41,8 @@ export const styles = {
         borderRadius: '20',
         margin: '1vw',
     },
-    ResidentInfo: { 
+    ResidentInfo: {
+        padding: '1vw',
         textAlign: 'left',
     },
     Footer: {
