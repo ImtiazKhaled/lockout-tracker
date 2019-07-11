@@ -9,9 +9,9 @@ The website helps filter, add and edit the information. Thus providing a much mo
 then doing it by hand.
 
 # Stack
--Backend: Google Firebase 
--Frontend: React + Javascript
--Database: Google Firebase Realtime Database
+- Backend: Google Firebase 
+- Frontend: React + Javascript
+- Database: Google Firebase Realtime Database
 
 # Try it for yourself
 Create a 'config.js' file in the src directory, and then add the following code:

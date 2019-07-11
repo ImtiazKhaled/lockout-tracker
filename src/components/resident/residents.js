@@ -1,12 +1,11 @@
 import React from 'react';
-import { Typography, Layout, Button, Modal, Row } from 'antd';
+import { Layout, Button, Modal } from 'antd';
 import Resident from './resident'
 import { CreateResident } from './residentForm';
 import * as firebase from 'firebase';
 import { SearchResidents } from './searchForm';
-import { app } from '../config';
 import { styles } from '../styles.js/styles';
-const { Title } = Typography;
+import { app } from '../config';
 const { Content, Footer } = Layout;
 
 
