@@ -6,10 +6,11 @@
   "dependencies": {
     "antd": "^3.20.1",
     "firebase": "^6.2.4",
+    "pdfmake": "^0.1.57",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
-    "react-socks": "^1.0.1"
+    "react-socks": "^1.0.1",
   },
   "scripts": {
     "start": "react-scripts start",
