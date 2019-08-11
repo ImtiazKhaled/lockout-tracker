@@ -5,6 +5,13 @@ export const AddEvent = (event) => {
     }
 }
 
+export const AddCheckin = (checkIn) => {
+    return {
+        type: 'ADD_CHECKIN',
+        checkIn
+    }
+}
+
 export const DeleteLog = (id) => {
     return {
         type: 'DELETE_LOG',

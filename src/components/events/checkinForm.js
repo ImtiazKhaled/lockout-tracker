@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Input, Button, DatePicker } from 'antd';
+import { Form, Input, Button } from 'antd';
 
 class CheckinForm extends React.Component {
     state = {
@@ -38,7 +38,7 @@ class CheckinForm extends React.Component {
             <Form {...formItemLayout} onSubmit={this.handleSubmit}>
 
                 <Form.Item label={'Name'} >
-                    {getFieldDecorator('title', {
+                    {getFieldDecorator('residentName', {
                         rules: [{ required: true, message: 'Please input title of Event!', whitespace: true }],
                     })(<Input />)}
                 </Form.Item>

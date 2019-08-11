@@ -1,3 +1,5 @@
+import * as firebase from 'firebase';
+import { app } from '../components/config';
 
 const initialState = {
     events: [
@@ -11,24 +13,41 @@ const initialState = {
         { "id": 8, "title": "Who'll Stop the Rain", "ra_name": "Loughhead", "date": "7/26/2019", "attending_residents": [] },
         { "id": 9, "title": "Moon of the Wolf", "ra_name": "Adkin", "date": "3/8/2019", "attending_residents": [] },
         { "id": 10, "title": "Poolhall Junkies", "ra_name": "Crews", "date": "7/14/2019", "attending_residents": [] },
-        // { "id": 11, "title": "Bad 25", "ra_name": "Priddis", "date": "4/23/2019", "attending_residents": null },
-        // { "id": 12, "title": "Toy Story Toons: Partysaurus Rex", "ra_name": "Compford", "date": "5/14/2019", "attending_residents": null },
-        // { "id": 13, "title": "Turandot Project, The", "ra_name": "Challin", "date": "2/6/2019", "attending_residents": null },
-        // { "id": 14, "title": "King Solomon's Mines", "ra_name": "Janiszewski", "date": "8/23/2018", "attending_residents": null },
     ]
 }
+
+// const listenForChange = state => {
+//     this.db.ref('events').on('child_added', snapshot => {
+//         let event = {
+//             key: snapshot.key,
+//             title: snapshot.val().title,
+//             ra_name: snapshot.val().ra_name,
+//             date: snapshot.val().date,
+//             attending_residents: snapshot.val().lockouts,
+//         }
+//         state.events.push(event);
+//         return state;
+//     })
+// }
 
 const RootReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'ADD_EVENT':
-        console.log('made it')    
-        const eventToAdd = {
+            firebase.database().ref('events').push({
                 ...action.event,
                 date: action.event.date.format('HH:mm MM/DD/YY'),
-                id: state.events.length + 1,
-            };
-            let events = [...state.events, eventToAdd]
-            return { ...state, events }
+                attending_residents: []
+            })
+            break;
+        case 'ADD_CHECKIN':
+            console.log(action);    
+            firebase.database().ref('events/'+ action.checkIn.eventId +'/attending_residents').push({
+                residentName: action.checkIn.residentName,
+                roomNumber: action.checkIn.roomNumber
+            })
+            break;
+        // let events = [...state.events, eventToAdd]
+        // return { ...state, events }
         // case 'DELETE_LOG':
         //     logs = state.logs
         //     let filteredLogs = logs.filter((log) => {

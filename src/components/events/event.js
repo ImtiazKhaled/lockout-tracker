@@ -2,7 +2,7 @@ import React from 'react';
 import { Typography, Card, Col, Row, Button, Modal } from 'antd';
 import { connect } from 'react-redux';
 import { CreateCheckin } from './checkinForm';
-import { AddEvent } from '../../redux/eventActions';
+import { AddCheckin } from '../../redux/eventActions';
 const { Text, Title } = Typography;
 
 class Event extends React.Component {
@@ -19,13 +19,6 @@ class Event extends React.Component {
         });
     }
 
-    addEvent = event => {
-        // this.props.addEvent(event);
-        this.setState({
-            modalVisibleOne: false,
-        });
-    }
-
     onCancel = e => {
         this.setState({
             modalVisibleOne: false,
@@ -34,14 +27,11 @@ class Event extends React.Component {
 
 
     checkIn = resident => {
-        let event = {
-            ...this.props.event,
-            attending_residents: [
-                ...this.props.event.attending_residents,
-                resident
-            ]
+        let checkIn = {
+            ...resident,
+            eventId: this.props.event.id,
         }
-        this.props.change(resident);
+        this.props.addCheckin(checkIn);
     }
 
     render() {
@@ -70,9 +60,9 @@ class Event extends React.Component {
                         </Row>
                     </Col>
                 </Row>
-                <Row>
+                {/* <Row>
                     {event.attending_residents.length}
-                </Row>
+                </Row> */}
                 <Modal
                     title='Checkin Card'
                     centered
@@ -98,7 +88,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addEvent: (event) => { dispatch(AddEvent(event)) }
+        addCheckin: (checkIn) => { dispatch(AddCheckin(checkIn)) }
     }
 }
 
