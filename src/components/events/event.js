@@ -37,44 +37,44 @@ class Event extends React.Component {
     render() {
         const { event } = this.props
         return (
-            <Card>
-                <Row>
-                    <Col span={16}>
-                        <Title>
-                            {event.title}
-                        </Title>
-                        <Text>
-                            {event.attending_residents}
-                        </Text>
-                    </Col>
-                    <Col span={8}>
-                        <Row>
+            // <div style={this.props.responsive.Resident}>
+                <div> 
+                <Card>
+                    <Row>
+                        <Col span={16}>
+                            <Title>
+                                {event.title}
+                            </Title>
                             <Text>
-                                RA {event.ra_name}
+                                {event.attending_residents}
                             </Text>
-                        </Row>
-                        <Row>
-                            <Text>
-                                {event.date}
-                            </Text>
-                        </Row>
-                    </Col>
-                </Row>
-                {/* <Row>
-                    {event.attending_residents.length}
-                </Row> */}
-                <Modal
-                    title='Checkin Card'
-                    centered
-                    visible={this.state.modalVisibleOne}
-                    onCancel={this.onCancel}
-                    footer={null}>
-                    <CreateCheckin onCancel={this.onCancel} onSubmit={this.checkIn} />
-                </Modal>
-                <Button type='primary' onClick={this.openFormOne}>
-                    Check-in
+                        </Col>
+                        <Col span={8}>
+                            <Row>
+                                <Text>
+                                    RA {event.ra_name}
+                                </Text>
+                            </Row>
+                            <Row>
+                                <Text>
+                                    {event.date}
+                                </Text>
+                            </Row>
+                        </Col>
+                    </Row>
+                    <Modal
+                        title='Checkin Card'
+                        centered
+                        visible={this.state.modalVisibleOne}
+                        onCancel={this.onCancel}
+                        footer={null}>
+                        <CreateCheckin onCancel={this.onCancel} onSubmit={this.checkIn} />
+                    </Modal>
+                    <Button type='primary' onClick={this.openFormOne}>
+                        Check-in
                 </Button>
-            </Card>
+                </Card>
+            </div>
         );
     }
 }

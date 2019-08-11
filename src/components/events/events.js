@@ -34,11 +34,12 @@ class Events extends React.Component {
 
     render() {
         const { events } = this.props
+        // console.log(this.props)
         return (
             <div>
                 {
                     events.map(event =>
-                        <Event change={this.addEvent} key={event.id} event={event} />
+                        <Event responsive={this.props.responsive} change={this.addEvent} key={event.id} event={event} />
                     )
                 }
                 <Button title='Add Event' onClick={this.openFormOne}>
