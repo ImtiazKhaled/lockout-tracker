@@ -1,31 +1,57 @@
 import React from 'react';
-import { Typography, Card, Button } from 'antd';
+import { Button, Modal } from 'antd';
 import { connect } from 'react-redux';
 import { AddEvent } from '../../redux/eventActions';
 import Event from './event';
-const { Text } = Typography;
-
-const logToAdd = {
-    "id": 11,
-    "happyMemory": "fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh",
-    "date": "31.08.2017",
-    "caloriesLost": 5613,
-    "caloriesGained": 4715
-};
+import { CreateEvent } from './eventForm';
 
 class Events extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            modalVisibleOne: false,
+        }
+    }
+
+    addEvent = event => {
+        this.props.addEvent(event);
+        this.setState({
+            modalVisibleOne: false,
+        });
+    }
+
+    onCancel = e => {
+        this.setState({
+            modalVisibleOne: false,
+        });
+    }
+
+    openFormOne = e => {
+        this.setState({
+            modalVisibleOne: true,
+        });
+    }
+
     render() {
-        const { logs } = this.props
+        const { events } = this.props
         return (
             <div>
                 {
-                    logs.map(log =>
-                        <Event log={log} />
+                    events.map(event =>
+                        <Event key={event.id} event={event} />
                     )
                 }
-                <Button title='Add Event' onClick={() => this.props.addEvent(logToAdd)}>
+                <Button title='Add Event' onClick={this.openFormOne}>
                     Add Event
-                    </Button>
+                </Button>
+                <Modal
+                    title='Checkin Card'
+                    centered
+                    visible={this.state.modalVisibleOne}
+                    onCancel={this.onCancel}
+                    footer={null}>
+                    <CreateEvent responsive={this.props.responsive} onSubmit={this.addEvent} onCancel={this.onCancel} />
+                </Modal>
             </div>
         );
     }
@@ -34,13 +60,13 @@ class Events extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        logs: state.logs
+        events: state.events
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addEvent: (log) => { dispatch(AddEvent(log)) }
+        addEvent: (event) => { dispatch(AddEvent(event)) }
     }
 }
 

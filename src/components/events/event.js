@@ -1,38 +1,39 @@
 import React from 'react';
-import { Typography, Card, Button } from 'antd';
+import { Typography, Card, Col, Row, Button } from 'antd';
 import { connect } from 'react-redux';
 import { AddEvent } from '../../redux/eventActions';
 const { Text, Title } = Typography;
 
-const logToAdd = {
-    "id": 11,
-    "happyMemory": "fermentum donec ut mauris eget massa tempor convallis nulla neque libero convallis eget eleifend luctus ultricies eu nibh",
-    "date": "31.08.2017",
-    "caloriesLost": 5613,
-    "caloriesGained": 4715
-};
-
 class Event extends React.Component {
     render() {
-        const { log } = this.props
+        const { event } = this.props
         return (
             <Card>
-                <Title>
-                    Date: {log.data}
-                </Title>
-                <Text>
-                    Calories Lost: {log.caloriesLost}
-                </Text>
-                <Text>
-                    Calories Gained: {log.caloriesGained}
-                </Text>
-                {/* <Text>
-                    Net Calories: {netCalories}
-                </Text> */}
-                <Text>
-                    A Happy Memory From Today: {log.happyMemory}
-                </Text>
-                {/* <Button title='Edit Log' onPress={() => this.props.editLog(log)} /> */}
+                <Row>
+                    <Col span={16}>
+                        <Title>
+                            {event.title}
+                        </Title>
+                        <Text>
+                            {event.attending_residents}
+                        </Text>
+                    </Col>
+                    <Col span={8}>
+                        <Row>
+                            <Text>
+                                RA {event.ra_name}
+                            </Text>
+                        </Row>
+                        <Row>
+                            <Text>
+                                {event.date}
+                            </Text>
+                        </Row>
+                    </Col>
+                </Row>
+                <Button type='primary'>
+                    Check-in
+                </Button>
             </Card>
         );
     }
@@ -41,13 +42,13 @@ class Event extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        logs: state.logs
+        events: state.events
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        addEvent: (log) => { dispatch(AddEvent(log)) }
+        addEvent: (event) => { dispatch(AddEvent(event)) }
     }
 }
 

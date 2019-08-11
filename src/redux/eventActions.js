@@ -1,7 +1,7 @@
-export const AddEvent = (log) => {
+export const AddEvent = (event) => {
     return {
         type: 'ADD_EVENT',
-        log
+        event
     }
 }
 
