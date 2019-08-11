@@ -38,7 +38,7 @@ class Events extends React.Component {
             <div>
                 {
                     events.map(event =>
-                        <Event key={event.id} event={event} />
+                        <Event change={this.addEvent} key={event.id} event={event} />
                     )
                 }
                 <Button title='Add Event' onClick={this.openFormOne}>

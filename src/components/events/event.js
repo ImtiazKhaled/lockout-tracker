@@ -1,10 +1,49 @@
 import React from 'react';
-import { Typography, Card, Col, Row, Button } from 'antd';
+import { Typography, Card, Col, Row, Button, Modal } from 'antd';
 import { connect } from 'react-redux';
+import { CreateCheckin } from './checkinForm';
 import { AddEvent } from '../../redux/eventActions';
 const { Text, Title } = Typography;
 
 class Event extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            modalVisibleOne: false,
+        }
+    }
+
+    openFormOne = e => {
+        this.setState({
+            modalVisibleOne: true,
+        });
+    }
+
+    addEvent = event => {
+        // this.props.addEvent(event);
+        this.setState({
+            modalVisibleOne: false,
+        });
+    }
+
+    onCancel = e => {
+        this.setState({
+            modalVisibleOne: false,
+        });
+    }
+
+
+    checkIn = resident => {
+        let event = {
+            ...this.props.event,
+            attending_residents: [
+                ...this.props.event.attending_residents,
+                resident
+            ]
+        }
+        this.props.change(resident);
+    }
+
     render() {
         const { event } = this.props
         return (
@@ -31,7 +70,18 @@ class Event extends React.Component {
                         </Row>
                     </Col>
                 </Row>
-                <Button type='primary'>
+                <Row>
+                    {event.attending_residents.length}
+                </Row>
+                <Modal
+                    title='Checkin Card'
+                    centered
+                    visible={this.state.modalVisibleOne}
+                    onCancel={this.onCancel}
+                    footer={null}>
+                    <CreateCheckin onCancel={this.onCancel} onSubmit={this.checkIn} />
+                </Modal>
+                <Button type='primary' onClick={this.openFormOne}>
                     Check-in
                 </Button>
             </Card>
